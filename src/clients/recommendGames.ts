@@ -173,11 +173,4 @@ export class RecommendGamesClient {
     throw new UpstreamError(`recommend.games is unavailable and nothing cached for ${label}: ${error.message}`, error.status);
   }
 
-  primeGame(game: RawGame): void {
-    this.detailCache.prime(`game:${game.bgg_id}`, game);
-  }
-
-  primeQuery(params: QueryParams, page: Page): void {
-    this.queryCache.prime(`query:${buildQuery(params)}`, page);
-  }
 }

@@ -45,9 +45,10 @@ class SerialQueue {
   private tail: Promise<unknown> = Promise.resolve();
 
   run<T>(task: () => Promise<T>): Promise<T> {
-    const result = this.tail.then(task, task);
-    // Keep the chain alive even when a task rejects, without swallowing the
-    // rejection that the caller is about to receive.
+    const result = this.tail.then(task);
+    // The chain the next task waits on must never reject, or one failed request
+    // would poison every request queued behind it. The caller still gets the
+    // original rejection through `result`.
     this.tail = result.catch(() => undefined);
     return result;
   }

@@ -3,6 +3,7 @@ import { HttpClient } from '../src/lib/http.js';
 import { RecommendGamesClient, RANKED_CORPUS, UNFILTERED_CORPUS, assertFilterApplied, buildQuery } from '../src/clients/recommendGames.js';
 import { FilterIgnoredError, UnknownFilterError, UpstreamError } from '../src/lib/errors.js';
 import { loadFixtures } from '../src/lib/recordedFetch.js';
+import { fakeFetch } from './support/deps.js';
 
 const fixtures = loadFixtures();
 const catan = fixtures.game_catan as Record<string, unknown>;
@@ -19,9 +20,9 @@ describe('the silently-ignored-filter trap', () => {
   it('refuses to build a query containing an unknown filter key', () => {
     // `name` is the trap in its natural habitat: a reasonable-looking parameter
     // that the API accepts, ignores, and answers with the entire corpus.
-    expect(() => buildQuery({ name: 'Catan' } as never)).toThrow(UnknownFilterError);
-    expect(() => buildQuery({ complexity_gte: 2 } as never)).toThrow(UnknownFilterError);
-    expect(() => buildQuery({ bgg_id: 13 } as never)).toThrow(UnknownFilterError);
+    expect(() => buildQuery({ name: 'Catan' })).toThrow(UnknownFilterError);
+    expect(() => buildQuery({ complexity_gte: 2 })).toThrow(UnknownFilterError);
+    expect(() => buildQuery({ bgg_id: 13 })).toThrow(UnknownFilterError);
   });
 
   it('allows the filters that were verified to actually filter', () => {
@@ -48,7 +49,7 @@ describe('the silently-ignored-filter trap', () => {
 
   it('surfaces a dropped filter through the client rather than returning 133k games', async () => {
     const fetch = vi.fn(async () => jsonResponse({ count: UNFILTERED_CORPUS, next: null, previous: null, results: [catan] }));
-    const client = new RecommendGamesClient({ http: new HttpClient({ fetch: fetch as never, sleep: async () => undefined }) });
+    const client = new RecommendGamesClient({ http: new HttpClient({ fetch: fakeFetch(fetch), sleep: async () => undefined }) });
 
     // Not retried, not cached, not degraded — it is our bug and it must be loud.
     await expect(client.query({ bgg_rank__isnull: false, num_votes__gte: 500 })).rejects.toThrow(FilterIgnoredError);
@@ -61,7 +62,7 @@ describe('a 503-prone upstream', () => {
     const delays: number[] = [];
     const fetch = vi.fn(async () => serviceUnavailable());
     const http = new HttpClient(
-      { fetch: fetch as never, sleep: async (ms) => { delays.push(ms); }, random: () => 1 },
+      { fetch: fakeFetch(fetch), sleep: async (ms) => { delays.push(ms); }, random: () => 1 },
       { attempts: 3, baseDelayMs: 100 },
     );
 
@@ -75,7 +76,7 @@ describe('a 503-prone upstream', () => {
 
   it('does not retry a 400, because a bad query is a bug and not a blip', async () => {
     const fetch = vi.fn(async () => new Response('bad', { status: 400, statusText: 'Bad Request' }));
-    const http = new HttpClient({ fetch: fetch as never, sleep: async () => undefined });
+    const http = new HttpClient({ fetch: fakeFetch(fetch), sleep: async () => undefined });
 
     await expect(http.getJson('https://recommend.games/api/games/')).rejects.toThrow(UpstreamError);
     expect(fetch).toHaveBeenCalledTimes(1);
@@ -86,7 +87,7 @@ describe('a 503-prone upstream', () => {
     let up = true;
     const fetch = vi.fn(async () => (up ? jsonResponse(catan) : serviceUnavailable()));
     const client = new RecommendGamesClient({
-      http: new HttpClient({ fetch: fetch as never, sleep: async () => undefined }),
+      http: new HttpClient({ fetch: fakeFetch(fetch), sleep: async () => undefined }),
       detailTtlMs: 60_000,
       now: () => now,
     });
@@ -107,7 +108,7 @@ describe('a 503-prone upstream', () => {
 
   it('fails cleanly when the upstream is down and nothing is cached', async () => {
     const client = new RecommendGamesClient({
-      http: new HttpClient({ fetch: (async () => serviceUnavailable()) as never, sleep: async () => undefined }),
+      http: new HttpClient({ fetch: fakeFetch(async () => serviceUnavailable()), sleep: async () => undefined }),
     });
     await expect(client.getGame(13)).rejects.toThrow(UpstreamError);
   });
@@ -115,7 +116,7 @@ describe('a 503-prone upstream', () => {
   it('serves a fresh cache hit without touching the network', async () => {
     const fetch = vi.fn(async () => jsonResponse(catan));
     const client = new RecommendGamesClient({
-      http: new HttpClient({ fetch: fetch as never, sleep: async () => undefined }),
+      http: new HttpClient({ fetch: fakeFetch(fetch), sleep: async () => undefined }),
     });
 
     await client.getGame(13);
@@ -134,7 +135,7 @@ describe('a 503-prone upstream', () => {
       inFlight -= 1;
       return jsonResponse(catan);
     });
-    const http = new HttpClient({ fetch: fetch as never, sleep: async () => undefined });
+    const http = new HttpClient({ fetch: fakeFetch(fetch), sleep: async () => undefined });
 
     await Promise.all([1, 2, 3, 4, 5].map((id) => http.getJson(`https://recommend.games/api/games/${id}/`)));
     expect(peak).toBe(1);
@@ -146,7 +147,7 @@ describe('a 503-prone upstream', () => {
       call += 1;
       return call === 1 ? serviceUnavailable() : jsonResponse(catan);
     });
-    const http = new HttpClient({ fetch: fetch as never, sleep: async () => undefined }, { attempts: 1 });
+    const http = new HttpClient({ fetch: fakeFetch(fetch), sleep: async () => undefined }, { attempts: 1 });
 
     // A rejected task must not poison the serial queue for everything behind it.
     await expect(http.getJson('https://recommend.games/api/games/1/')).rejects.toThrow(UpstreamError);

@@ -42,10 +42,10 @@ npm run inspector # the official MCP Inspector, a React web client
 `.mcp.json` is committed, so a client that reads it (Claude Code, and others) picks the server up from
 the repo root with no further configuration.
 
-**Node ≥ 22.19.0 is needed for `npm run inspector`.** The server, the tests and the demo run on Node
-≥ 20 — this was developed on 22.15.0 — but MCP Inspector v2 declares `engines.node >= 22.19.0` and will
-refuse to start below it. If `node --version` is lower and you want the Inspector, `nvm use 24` first.
-Nothing else in the repo is affected.
+**Node.** The server, tests and demo run on Node ≥ 20; this was developed on 22.15.0. MCP Inspector v2
+declares `engines.node >= 22.19.0`. npm treats that as advisory rather than a hard gate — it did launch
+on 22.15.0 when tested — but it is below what the Inspector supports, so `nvm use 24` before
+`npm run inspector` if you hit anything odd. Nothing else in the repo is affected.
 
 ## What the tools do
 

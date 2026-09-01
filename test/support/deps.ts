@@ -20,3 +20,12 @@ export function fixtureDeps(onRequest?: (url: string) => void): ToolDeps {
     mechanics: MechanicVocabulary.load(),
   };
 }
+
+/**
+ * Types a stub as a `fetch`. The real signature has several overloads that a
+ * test stub never needs, and spelling it out here keeps the casts out of the
+ * tests themselves.
+ */
+export function fakeFetch(impl: () => Promise<Response>): typeof globalThis.fetch {
+  return impl as unknown as typeof globalThis.fetch;
+}

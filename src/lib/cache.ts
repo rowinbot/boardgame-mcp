@@ -53,11 +53,6 @@ export class StaleWhileErrorCache<T> {
     this.entries.set(key, { value, storedAt: this.now() });
   }
 
-  /** Seeds the cache from a recorded fixture so the demo runs with the upstream down. */
-  prime(key: string, value: T): void {
-    this.set(key, value);
-  }
-
   get size(): number {
     return this.entries.size;
   }
