@@ -100,4 +100,4 @@ These apply to every markdown file except the parameter and latency tables in
 
 recommend.games is a hobby-tier deployment that sheds load after about five requests in quick
 succession. Anything that re-measures it runs serially, with pauses, and records the date. The
-`.claude/agents/upstream-check.md` agent exists for that job.
+`.claude/agents/upstream-check.md` agent does the re-measuring and knows the pacing rules.
