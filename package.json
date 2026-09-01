@@ -18,6 +18,9 @@
   },
   "dependencies": {
     "@modelcontextprotocol/server": "^2.0.0",
+    "lru-cache": "^11.5.2",
+    "p-limit": "^7.3.2",
+    "p-retry": "^8.0.1",
     "zod": "^4.5.4"
   },
   "devDependencies": {

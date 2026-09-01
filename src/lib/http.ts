@@ -1,3 +1,6 @@
+import pLimit from 'p-limit';
+import pRetry, { AbortError } from 'p-retry';
+
 import { UpstreamError } from './errors.js';
 
 /**
@@ -37,25 +40,13 @@ export interface HttpOptions {
 
 const DEFAULTS = { attempts: 3, timeoutMs: 35_000, baseDelayMs: 700 } as const;
 
-/**
- * A serial queue. Not a general-purpose concurrency limiter — the correct limit
- * for this upstream is one, and hardcoding that is clearer than configuring it.
- */
-class SerialQueue {
-  private tail: Promise<unknown> = Promise.resolve();
-
-  run<T>(task: () => Promise<T>): Promise<T> {
-    const result = this.tail.then(task);
-    // The chain the next task waits on must never reject, or one failed request
-    // would poison every request queued behind it. The caller still gets the
-    // original rejection through `result`.
-    this.tail = result.catch(() => undefined);
-    return result;
-  }
-}
-
 export class HttpClient {
-  private readonly queue = new SerialQueue();
+  /**
+   * The correct concurrency for this upstream is one. It 503s after roughly five
+   * requests in quick succession, so requests are serialised rather than merely
+   * rate-limited.
+   */
+  private readonly limit = pLimit(1);
   private readonly deps: HttpDeps;
   private readonly opts: Required<HttpOptions>;
 
@@ -66,25 +57,40 @@ export class HttpClient {
 
   /** Fetches JSON, one request at a time, retrying only what is worth retrying. */
   async getJson<T>(url: string): Promise<T> {
-    return this.queue.run(() => this.attemptLoop<T>(url));
+    return this.limit(() => this.attemptLoop<T>(url));
   }
 
   private async attemptLoop<T>(url: string): Promise<T> {
-    let lastError: UpstreamError | undefined;
-
-    for (let attempt = 1; attempt <= this.opts.attempts; attempt += 1) {
-      try {
-        return await this.once<T>(url);
-      } catch (error) {
-        if (!(error instanceof UpstreamError)) throw error;
-        lastError = error;
-        const retryable = error.status === undefined || RETRYABLE_STATUS.has(error.status);
-        if (!retryable || attempt === this.opts.attempts) break;
-        await this.deps.sleep(this.backoffMs(attempt));
-      }
-    }
-
-    throw lastError ?? new UpstreamError(`Request to ${url} failed`);
+    return pRetry(
+      async () => {
+        try {
+          return await this.once<T>(url);
+        } catch (error) {
+          // A non-UpstreamError is our own bug, not a blip. The silent-filter
+          // guard throws one deliberately, and retrying it would hide the very
+          // thing it exists to surface. AbortError stops p-retry immediately and
+          // rethrows the original.
+          if (!(error instanceof UpstreamError)) throw new AbortError(error as Error);
+          const retryable = error.status === undefined || RETRYABLE_STATUS.has(error.status);
+          if (!retryable) throw new AbortError(error);
+          throw error;
+        }
+      },
+      {
+        retries: this.opts.attempts - 1,
+        // p-retry's own backoff is deterministic. Jitter matters here because
+        // several servers retrying a fragile upstream in lockstep is how a 503
+        // becomes a sustained one.
+        onFailedAttempt: async ({ attemptNumber, retriesLeft }) => {
+          // p-retry calls this after the final attempt too. Sleeping there would
+          // delay the rejection by a backoff nobody is waiting through.
+          if (retriesLeft > 0) await this.deps.sleep(this.backoffMs(attemptNumber));
+        },
+        minTimeout: 0,
+        maxTimeout: 0,
+        factor: 1,
+      },
+    );
   }
 
   /** Exponential, with full jitter so retries from parallel servers do not synchronise. */
