@@ -1,0 +1,962 @@
+[
+ {
+  "bgg_id": 2072,
+  "name": "Dice Rolling",
+  "count": 30371
+ },
+ {
+  "bgg_id": 2035,
+  "name": "Roll / Spin and Move",
+  "count": 17417
+ },
+ {
+  "bgg_id": 2040,
+  "name": "Hand Management",
+  "count": 16862
+ },
+ {
+  "bgg_id": 2004,
+  "name": "Set Collection",
+  "count": 15301
+ },
+ {
+  "bgg_id": 2041,
+  "name": "Open Drafting",
+  "count": 8465
+ },
+ {
+  "bgg_id": 2023,
+  "name": "Cooperative Game",
+  "count": 8445
+ },
+ {
+  "bgg_id": 2026,
+  "name": "Hexagon Grid",
+  "count": 8401
+ },
+ {
+  "bgg_id": 2015,
+  "name": "Variable Player Powers",
+  "count": 8346
+ },
+ {
+  "bgg_id": 2070,
+  "name": "Simulation",
+  "count": 8162
+ },
+ {
+  "bgg_id": 2002,
+  "name": "Tile Placement",
+  "count": 7350
+ },
+ {
+  "bgg_id": 2676,
+  "name": "Grid Movement",
+  "count": 6789
+ },
+ {
+  "bgg_id": 2819,
+  "name": "Solo / Solitaire Game",
+  "count": 6094
+ },
+ {
+  "bgg_id": 2047,
+  "name": "Memory",
+  "count": 6021
+ },
+ {
+  "bgg_id": 2686,
+  "name": "Take That",
+  "count": 5188
+ },
+ {
+  "bgg_id": 2080,
+  "name": "Area Majority / Influence",
+  "count": 5169
+ },
+ {
+  "bgg_id": 2011,
+  "name": "Modular Board",
+  "count": 5108
+ },
+ {
+  "bgg_id": 2078,
+  "name": "Point to Point Movement",
+  "count": 5108
+ },
+ {
+  "bgg_id": 2012,
+  "name": "Auction/Bidding",
+  "count": 4548
+ },
+ {
+  "bgg_id": 2020,
+  "name": "Simultaneous Action Selection",
+  "count": 4528
+ },
+ {
+  "bgg_id": 2685,
+  "name": "Player Elimination",
+  "count": 4469
+ },
+ {
+  "bgg_id": 2661,
+  "name": "Push Your Luck",
+  "count": 4396
+ },
+ {
+  "bgg_id": 2046,
+  "name": "Area Movement",
+  "count": 4385
+ },
+ {
+  "bgg_id": 2019,
+  "name": "Team-Based Game",
+  "count": 4312
+ },
+ {
+  "bgg_id": 2001,
+  "name": "Action Points",
+  "count": 4282
+ },
+ {
+  "bgg_id": 2048,
+  "name": "Pattern Building",
+  "count": 4256
+ },
+ {
+  "bgg_id": 2008,
+  "name": "Trading",
+  "count": 4101
+ },
+ {
+  "bgg_id": 2055,
+  "name": "Paper-and-Pencil",
+  "count": 3842
+ },
+ {
+  "bgg_id": 2060,
+  "name": "Pattern Recognition",
+  "count": 3508
+ },
+ {
+  "bgg_id": 2027,
+  "name": "Storytelling",
+  "count": 3205
+ },
+ {
+  "bgg_id": 2028,
+  "name": "Role Playing",
+  "count": 2963
+ },
+ {
+  "bgg_id": 2664,
+  "name": "Deck, Bag, and Pool Building",
+  "count": 2832
+ },
+ {
+  "bgg_id": 2014,
+  "name": "Betting and Bluffing",
+  "count": 2828
+ },
+ {
+  "bgg_id": 2009,
+  "name": "Trick-taking",
+  "count": 2793
+ },
+ {
+  "bgg_id": 2876,
+  "name": "Race",
+  "count": 2776
+ },
+ {
+  "bgg_id": 2822,
+  "name": "Scenario / Mission / Campaign Game",
+  "count": 2631
+ },
+ {
+  "bgg_id": 2897,
+  "name": "Variable Set-up",
+  "count": 2619
+ },
+ {
+  "bgg_id": 3002,
+  "name": "Deduction",
+  "count": 2596
+ },
+ {
+  "bgg_id": 2082,
+  "name": "Worker Placement",
+  "count": 2473
+ },
+ {
+  "bgg_id": 2007,
+  "name": "Pick-up and Deliver",
+  "count": 2287
+ },
+ {
+  "bgg_id": 2940,
+  "name": "Square Grid",
+  "count": 2222
+ },
+ {
+  "bgg_id": 2017,
+  "name": "Voting",
+  "count": 2203
+ },
+ {
+  "bgg_id": 2850,
+  "name": "Events",
+  "count": 2197
+ },
+ {
+  "bgg_id": 2073,
+  "name": "Acting",
+  "count": 2080
+ },
+ {
+  "bgg_id": 2018,
+  "name": "Campaign / Battle Card Driven",
+  "count": 1973
+ },
+ {
+  "bgg_id": 2947,
+  "name": "Movement Points",
+  "count": 1855
+ },
+ {
+  "bgg_id": 2016,
+  "name": "Secret Unit Deployment",
+  "count": 1729
+ },
+ {
+  "bgg_id": 2081,
+  "name": "Network and Route Building",
+  "count": 1666
+ },
+ {
+  "bgg_id": 2875,
+  "name": "End Game Bonuses",
+  "count": 1650
+ },
+ {
+  "bgg_id": 2949,
+  "name": "Measurement Movement",
+  "count": 1610
+ },
+ {
+  "bgg_id": 2857,
+  "name": "Card Play Conflict Resolution",
+  "count": 1594
+ },
+ {
+  "bgg_id": 2831,
+  "name": "Real-Time",
+  "count": 1442
+ },
+ {
+  "bgg_id": 2939,
+  "name": "Track Movement",
+  "count": 1355
+ },
+ {
+  "bgg_id": 2689,
+  "name": "Action Queue",
+  "count": 1304
+ },
+ {
+  "bgg_id": 2005,
+  "name": "Stock Holding",
+  "count": 1278
+ },
+ {
+  "bgg_id": 2975,
+  "name": "Line of Sight",
+  "count": 1270
+ },
+ {
+  "bgg_id": 3007,
+  "name": "Matching",
+  "count": 1224
+ },
+ {
+  "bgg_id": 2840,
+  "name": "Action/Event",
+  "count": 1205
+ },
+ {
+  "bgg_id": 2902,
+  "name": "Income",
+  "count": 1133
+ },
+ {
+  "bgg_id": 3004,
+  "name": "Deck Construction",
+  "count": 1048
+ },
+ {
+  "bgg_id": 2974,
+  "name": "Zone of Control",
+  "count": 1046
+ },
+ {
+  "bgg_id": 2003,
+  "name": "Rock-Paper-Scissors",
+  "count": 1037
+ },
+ {
+  "bgg_id": 3099,
+  "name": "Multi-Use Cards",
+  "count": 1006
+ },
+ {
+  "bgg_id": 2079,
+  "name": "Variable Phase Order",
+  "count": 930
+ },
+ {
+  "bgg_id": 2057,
+  "name": "Chit-Pull System",
+  "count": 911
+ },
+ {
+  "bgg_id": 2043,
+  "name": "Enclosure",
+  "count": 910
+ },
+ {
+  "bgg_id": 2912,
+  "name": "Contracts",
+  "count": 833
+ },
+ {
+  "bgg_id": 2855,
+  "name": "Ratio / Combat Results Table",
+  "count": 797
+ },
+ {
+  "bgg_id": 2013,
+  "name": "Commodity Speculation",
+  "count": 792
+ },
+ {
+  "bgg_id": 2900,
+  "name": "Market",
+  "count": 781
+ },
+ {
+  "bgg_id": 2891,
+  "name": "Hidden Roles",
+  "count": 770
+ },
+ {
+  "bgg_id": 2820,
+  "name": "Semi-Cooperative Game",
+  "count": 744
+ },
+ {
+  "bgg_id": 2915,
+  "name": "Negotiation",
+  "count": 736
+ },
+ {
+  "bgg_id": 2883,
+  "name": "Connections",
+  "count": 733
+ },
+ {
+  "bgg_id": 2039,
+  "name": "Line Drawing",
+  "count": 729
+ },
+ {
+  "bgg_id": 2893,
+  "name": "Communication Limits",
+  "count": 728
+ },
+ {
+  "bgg_id": 3113,
+  "name": "Spelling",
+  "count": 648
+ },
+ {
+  "bgg_id": 2865,
+  "name": "Player Judge",
+  "count": 628
+ },
+ {
+  "bgg_id": 2846,
+  "name": "Once-Per-Game Abilities",
+  "count": 601
+ },
+ {
+  "bgg_id": 2836,
+  "name": "Lose a Turn",
+  "count": 585
+ },
+ {
+  "bgg_id": 2956,
+  "name": "Chaining",
+  "count": 558
+ },
+ {
+  "bgg_id": 2962,
+  "name": "Move Through Deck",
+  "count": 544
+ },
+ {
+  "bgg_id": 2984,
+  "name": "Closed Drafting",
+  "count": 535
+ },
+ {
+  "bgg_id": 2874,
+  "name": "Victory Points as a Resource",
+  "count": 509
+ },
+ {
+  "bgg_id": 2828,
+  "name": "Turn Order: Progressive",
+  "count": 503
+ },
+ {
+  "bgg_id": 2991,
+  "name": "Speed Matching",
+  "count": 493
+ },
+ {
+  "bgg_id": 3096,
+  "name": "Drawing",
+  "count": 490
+ },
+ {
+  "bgg_id": 2856,
+  "name": "Die Icon Resolution",
+  "count": 489
+ },
+ {
+  "bgg_id": 2978,
+  "name": "Grid Coverage",
+  "count": 483
+ },
+ {
+  "bgg_id": 2870,
+  "name": "Re-rolling and Locking",
+  "count": 462
+ },
+ {
+  "bgg_id": 2988,
+  "name": "Stacking and Balancing",
+  "count": 461
+ },
+ {
+  "bgg_id": 2851,
+  "name": "Narrative Choice / Paragraph",
+  "count": 442
+ },
+ {
+  "bgg_id": 2884,
+  "name": "Sudden Death Ending",
+  "count": 434
+ },
+ {
+  "bgg_id": 2967,
+  "name": "Hidden Movement",
+  "count": 432
+ },
+ {
+  "bgg_id": 2823,
+  "name": "Score-and-Reset Game",
+  "count": 426
+ },
+ {
+  "bgg_id": 2841,
+  "name": "Command Cards",
+  "count": 424
+ },
+ {
+  "bgg_id": 2965,
+  "name": "Multiple Maps",
+  "count": 413
+ },
+ {
+  "bgg_id": 2987,
+  "name": "Hidden Victory Points",
+  "count": 413
+ },
+ {
+  "bgg_id": 2854,
+  "name": "Critical Hits and Failures",
+  "count": 410
+ },
+ {
+  "bgg_id": 2838,
+  "name": "Action Drafting",
+  "count": 409
+ },
+ {
+  "bgg_id": 2837,
+  "name": "Interrupts",
+  "count": 399
+ },
+ {
+  "bgg_id": 2038,
+  "name": "Singing",
+  "count": 395
+ },
+ {
+  "bgg_id": 2911,
+  "name": "Ownership",
+  "count": 387
+ },
+ {
+  "bgg_id": 2849,
+  "name": "Tech Trees / Tech Tracks",
+  "count": 386
+ },
+ {
+  "bgg_id": 2959,
+  "name": "Map Addition",
+  "count": 382
+ },
+ {
+  "bgg_id": 2916,
+  "name": "Alliances",
+  "count": 364
+ },
+ {
+  "bgg_id": 2933,
+  "name": "Worker Placement, Different Worker Types",
+  "count": 363
+ },
+ {
+  "bgg_id": 2814,
+  "name": "Traitor Game",
+  "count": 360
+ },
+ {
+  "bgg_id": 2860,
+  "name": "Flicking",
+  "count": 348
+ },
+ {
+  "bgg_id": 2980,
+  "name": "Ladder Climbing",
+  "count": 345
+ },
+ {
+  "bgg_id": 2892,
+  "name": "Roles with Asymmetric Information",
+  "count": 338
+ },
+ {
+  "bgg_id": 3001,
+  "name": "Layering",
+  "count": 338
+ },
+ {
+  "bgg_id": 2861,
+  "name": "Static Capture",
+  "count": 325
+ },
+ {
+  "bgg_id": 2948,
+  "name": "Resource to Move",
+  "count": 324
+ },
+ {
+  "bgg_id": 2910,
+  "name": "Investment",
+  "count": 318
+ },
+ {
+  "bgg_id": 2826,
+  "name": "Turn Order: Stat-Based",
+  "count": 302
+ },
+ {
+  "bgg_id": 2946,
+  "name": "Pattern Movement",
+  "count": 301
+ },
+ {
+  "bgg_id": 2829,
+  "name": "Turn Order: Claim Action",
+  "count": 299
+ },
+ {
+  "bgg_id": 2021,
+  "name": "Area-Impulse",
+  "count": 281
+ },
+ {
+  "bgg_id": 2813,
+  "name": "Rondel",
+  "count": 270
+ },
+ {
+  "bgg_id": 2889,
+  "name": "Highest-Lowest Scoring",
+  "count": 264
+ },
+ {
+  "bgg_id": 2964,
+  "name": "Pieces as Map",
+  "count": 264
+ },
+ {
+  "bgg_id": 2958,
+  "name": "Moving Multiple Units",
+  "count": 263
+ },
+ {
+  "bgg_id": 2885,
+  "name": "Finale Ending",
+  "count": 259
+ },
+ {
+  "bgg_id": 2935,
+  "name": "Worker Placement with Dice Workers",
+  "count": 257
+ },
+ {
+  "bgg_id": 2834,
+  "name": "Action Timer",
+  "count": 254
+ },
+ {
+  "bgg_id": 2830,
+  "name": "Turn Order: Pass Order",
+  "count": 252
+ },
+ {
+  "bgg_id": 2953,
+  "name": "Programmed Movement",
+  "count": 250
+ },
+ {
+  "bgg_id": 2663,
+  "name": "Turn Order: Time Track",
+  "count": 249
+ },
+ {
+  "bgg_id": 2944,
+  "name": "Three Dimensional Movement",
+  "count": 243
+ },
+ {
+  "bgg_id": 3100,
+  "name": "Tags",
+  "count": 237
+ },
+ {
+  "bgg_id": 2999,
+  "name": "Bingo",
+  "count": 229
+ },
+ {
+  "bgg_id": 3005,
+  "name": "Slide / Push",
+  "count": 229
+ },
+ {
+  "bgg_id": 2839,
+  "name": "Action Retrieval",
+  "count": 224
+ },
+ {
+  "bgg_id": 3102,
+  "name": "Questions and Answers",
+  "count": 218
+ },
+ {
+  "bgg_id": 2955,
+  "name": "Mancala",
+  "count": 216
+ },
+ {
+  "bgg_id": 2853,
+  "name": "Stat Check Resolution",
+  "count": 215
+ },
+ {
+  "bgg_id": 2887,
+  "name": "Catch the Leader",
+  "count": 205
+ },
+ {
+  "bgg_id": 2981,
+  "name": "Melding and Splaying",
+  "count": 200
+ },
+ {
+  "bgg_id": 2904,
+  "name": "Loans",
+  "count": 198
+ },
+ {
+  "bgg_id": 2888,
+  "name": "Tug of War",
+  "count": 190
+ },
+ {
+  "bgg_id": 2960,
+  "name": "Map Reduction",
+  "count": 185
+ },
+ {
+  "bgg_id": 3006,
+  "name": "Predictive Bid",
+  "count": 183
+ },
+ {
+  "bgg_id": 2920,
+  "name": "Auction: Sealed Bid",
+  "count": 180
+ },
+ {
+  "bgg_id": 2871,
+  "name": "Kill Steal",
+  "count": 178
+ },
+ {
+  "bgg_id": 3000,
+  "name": "Hot Potato",
+  "count": 177
+ },
+ {
+  "bgg_id": 2950,
+  "name": "Different Dice Movement",
+  "count": 175
+ },
+ {
+  "bgg_id": 2961,
+  "name": "Map Deformation",
+  "count": 175
+ },
+ {
+  "bgg_id": 2821,
+  "name": "Single Loser Game",
+  "count": 173
+ },
+ {
+  "bgg_id": 2963,
+  "name": "Movement Template",
+  "count": 172
+ },
+ {
+  "bgg_id": 2886,
+  "name": "King of the Hill",
+  "count": 170
+ },
+ {
+  "bgg_id": 2824,
+  "name": "Legacy Game",
+  "count": 168
+ },
+ {
+  "bgg_id": 2866,
+  "name": "Targeted Clues",
+  "count": 166
+ },
+ {
+  "bgg_id": 2906,
+  "name": "I Cut, You Choose",
+  "count": 163
+ },
+ {
+  "bgg_id": 2989,
+  "name": "Physical Removal",
+  "count": 159
+ },
+ {
+  "bgg_id": 2985,
+  "name": "Turn Order: Random",
+  "count": 158
+ },
+ {
+  "bgg_id": 2901,
+  "name": "Delayed Purchase",
+  "count": 149
+ },
+ {
+  "bgg_id": 2882,
+  "name": "Elapsed Real Time Ending",
+  "count": 148
+ },
+ {
+  "bgg_id": 2913,
+  "name": "Bribery",
+  "count": 148
+ },
+ {
+  "bgg_id": 2827,
+  "name": "Turn Order: Auction",
+  "count": 147
+ },
+ {
+  "bgg_id": 2914,
+  "name": "Increase Value of Unchosen Resources",
+  "count": 145
+ },
+ {
+  "bgg_id": 3101,
+  "name": "Ordering",
+  "count": 145
+ },
+ {
+  "bgg_id": 2864,
+  "name": "Force Commitment",
+  "count": 131
+ },
+ {
+  "bgg_id": 2843,
+  "name": "Follow",
+  "count": 129
+ },
+ {
+  "bgg_id": 2909,
+  "name": "Random Production",
+  "count": 128
+ },
+ {
+  "bgg_id": 2847,
+  "name": "Advantage Token",
+  "count": 124
+ },
+ {
+  "bgg_id": 2903,
+  "name": "Automatic Resource Growth",
+  "count": 115
+ },
+ {
+  "bgg_id": 2957,
+  "name": "Bias",
+  "count": 114
+ },
+ {
+  "bgg_id": 2863,
+  "name": "Minimap Resolution",
+  "count": 108
+ },
+ {
+  "bgg_id": 2952,
+  "name": "Impulse Movement",
+  "count": 103
+ },
+ {
+  "bgg_id": 2833,
+  "name": "Turn Order: Role Order",
+  "count": 94
+ },
+ {
+  "bgg_id": 2954,
+  "name": "Relative Movement",
+  "count": 93
+ },
+ {
+  "bgg_id": 2922,
+  "name": "Constrained Bidding",
+  "count": 87
+ },
+ {
+  "bgg_id": 2919,
+  "name": "Auction: Turn Order Until Pass",
+  "count": 86
+ },
+ {
+  "bgg_id": 2858,
+  "name": "Prisoner's Dilemma",
+  "count": 85
+ },
+ {
+  "bgg_id": 3097,
+  "name": "Bids As Wagers",
+  "count": 69
+ },
+ {
+  "bgg_id": 2844,
+  "name": "Order Counters",
+  "count": 66
+ },
+ {
+  "bgg_id": 3103,
+  "name": "Resource Queue",
+  "count": 66
+ },
+ {
+  "bgg_id": 2010,
+  "name": "Crayon Rail System",
+  "count": 56
+ },
+ {
+  "bgg_id": 2926,
+  "name": "Selection Order Bid",
+  "count": 54
+ },
+ {
+  "bgg_id": 3003,
+  "name": "Induction",
+  "count": 54
+ },
+ {
+  "bgg_id": 2924,
+  "name": "Auction: Dutch",
+  "count": 48
+ },
+ {
+  "bgg_id": 2923,
+  "name": "Auction: Once Around",
+  "count": 47
+ },
+ {
+  "bgg_id": 3104,
+  "name": "Neighbor Scope",
+  "count": 46
+ },
+ {
+  "bgg_id": 2927,
+  "name": "Auction: Multiple Lot",
+  "count": 44
+ },
+ {
+  "bgg_id": 2990,
+  "name": "Cube Tower",
+  "count": 42
+ },
+ {
+  "bgg_id": 2918,
+  "name": "Auction: English",
+  "count": 39
+ },
+ {
+  "bgg_id": 2930,
+  "name": "Auction: Dexterity",
+  "count": 33
+ },
+ {
+  "bgg_id": 2835,
+  "name": "Passed Action Token",
+  "count": 31
+ },
+ {
+  "bgg_id": 2928,
+  "name": "Closed Economy Auction",
+  "count": 31
+ },
+ {
+  "bgg_id": 2931,
+  "name": "Auction: Fixed Placement",
+  "count": 28
+ },
+ {
+  "bgg_id": 3098,
+  "name": "Auction Compensation",
+  "count": 14
+ },
+ {
+  "bgg_id": 2932,
+  "name": "Auction: Dutch Priority",
+  "count": 11
+ }
+]

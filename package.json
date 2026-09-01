@@ -1,0 +1,29 @@
+{
+  "name": "boardgame-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "MCP server exposing board game recommendation tools backed by the recommend.games public API.",
+  "engines": {
+    "node": ">=22.15.0"
+  },
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "demo": "tsx scripts/demo.ts",
+    "build-index": "tsx scripts/build-name-index.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "inspector": "npx @modelcontextprotocol/inspector tsx src/index.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "^2.0.0",
+    "zod": "^4.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^26.4.0",
+    "tsx": "^4.23.13",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.11"
+  }
+}

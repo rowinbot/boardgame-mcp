@@ -1,0 +1,422 @@
+[
+ {
+  "bgg_id": 1002,
+  "name": "Card Game",
+  "count": 36156
+ },
+ {
+  "bgg_id": 1041,
+  "name": "Children's Game",
+  "count": 19543
+ },
+ {
+  "bgg_id": 1019,
+  "name": "Wargame",
+  "count": 16601
+ },
+ {
+  "bgg_id": 1030,
+  "name": "Party Game",
+  "count": 13607
+ },
+ {
+  "bgg_id": 1010,
+  "name": "Fantasy",
+  "count": 12075
+ },
+ {
+  "bgg_id": 1017,
+  "name": "Dice",
+  "count": 12046
+ },
+ {
+  "bgg_id": 1009,
+  "name": "Abstract Strategy",
+  "count": 11264
+ },
+ {
+  "bgg_id": 1089,
+  "name": "Animals",
+  "count": 10471
+ },
+ {
+  "bgg_id": 1094,
+  "name": "Educational",
+  "count": 9969
+ },
+ {
+  "bgg_id": 1120,
+  "name": "Print & Play",
+  "count": 8355
+ },
+ {
+  "bgg_id": 1021,
+  "name": "Economic",
+  "count": 7837
+ },
+ {
+  "bgg_id": 1027,
+  "name": "Trivia",
+  "count": 7798
+ },
+ {
+  "bgg_id": 1016,
+  "name": "Science Fiction",
+  "count": 7784
+ },
+ {
+  "bgg_id": 1064,
+  "name": "Movies / TV / Radio theme",
+  "count": 7600
+ },
+ {
+  "bgg_id": 1032,
+  "name": "Action / Dexterity",
+  "count": 6916
+ },
+ {
+  "bgg_id": 1079,
+  "name": "Humor",
+  "count": 6894
+ },
+ {
+  "bgg_id": 1047,
+  "name": "Miniatures",
+  "count": 6721
+ },
+ {
+  "bgg_id": 1046,
+  "name": "Fighting",
+  "count": 6577
+ },
+ {
+  "bgg_id": 1038,
+  "name": "Sports",
+  "count": 5962
+ },
+ {
+  "bgg_id": 1039,
+  "name": "Deduction",
+  "count": 5916
+ },
+ {
+  "bgg_id": 1022,
+  "name": "Adventure",
+  "count": 5395
+ },
+ {
+  "bgg_id": 1031,
+  "name": "Racing",
+  "count": 4952
+ },
+ {
+  "bgg_id": 1049,
+  "name": "World War II",
+  "count": 4546
+ },
+ {
+  "bgg_id": 1023,
+  "name": "Bluffing",
+  "count": 4529
+ },
+ {
+  "bgg_id": 1025,
+  "name": "Word Game",
+  "count": 4441
+ },
+ {
+  "bgg_id": 1028,
+  "name": "Puzzle",
+  "count": 4287
+ },
+ {
+  "bgg_id": 1045,
+  "name": "Memory",
+  "count": 4183
+ },
+ {
+  "bgg_id": 1035,
+  "name": "Medieval",
+  "count": 4056
+ },
+ {
+  "bgg_id": 1026,
+  "name": "Negotiation",
+  "count": 3783
+ },
+ {
+  "bgg_id": 1020,
+  "name": "Exploration",
+  "count": 3545
+ },
+ {
+  "bgg_id": 1037,
+  "name": "Real-time",
+  "count": 3046
+ },
+ {
+  "bgg_id": 1024,
+  "name": "Horror",
+  "count": 2913
+ },
+ {
+  "bgg_id": 1008,
+  "name": "Nautical",
+  "count": 2895
+ },
+ {
+  "bgg_id": 1050,
+  "name": "Ancient",
+  "count": 2728
+ },
+ {
+  "bgg_id": 1093,
+  "name": "Novel-based",
+  "count": 2612
+ },
+ {
+  "bgg_id": 1117,
+  "name": "Book",
+  "count": 2589
+ },
+ {
+  "bgg_id": 1097,
+  "name": "Travel",
+  "count": 2434
+ },
+ {
+  "bgg_id": 1001,
+  "name": "Political",
+  "count": 2384
+ },
+ {
+  "bgg_id": 1040,
+  "name": "Murder / Mystery",
+  "count": 2378
+ },
+ {
+  "bgg_id": 1104,
+  "name": "Math",
+  "count": 2170
+ },
+ {
+  "bgg_id": 1086,
+  "name": "Territory Building",
+  "count": 1943
+ },
+ {
+  "bgg_id": 1116,
+  "name": "Comic Book / Strip",
+  "count": 1904
+ },
+ {
+  "bgg_id": 1069,
+  "name": "Modern Warfare",
+  "count": 1758
+ },
+ {
+  "bgg_id": 1098,
+  "name": "Number",
+  "count": 1718
+ },
+ {
+  "bgg_id": 1011,
+  "name": "Transportation",
+  "count": 1709
+ },
+ {
+  "bgg_id": 1082,
+  "name": "Mythology",
+  "count": 1695
+ },
+ {
+  "bgg_id": 1084,
+  "name": "Environmental",
+  "count": 1668
+ },
+ {
+  "bgg_id": 1029,
+  "name": "City Building",
+  "count": 1638
+ },
+ {
+  "bgg_id": 1118,
+  "name": "Mature / Adult",
+  "count": 1628
+ },
+ {
+  "bgg_id": 1113,
+  "name": "Space Exploration",
+  "count": 1627
+ },
+ {
+  "bgg_id": 1101,
+  "name": "Video Game Theme",
+  "count": 1535
+ },
+ {
+  "bgg_id": 1044,
+  "name": "Collectible Components",
+  "count": 1510
+ },
+ {
+  "bgg_id": 1090,
+  "name": "Pirates",
+  "count": 1462
+ },
+ {
+  "bgg_id": 2650,
+  "name": "Aviation / Flight",
+  "count": 1402
+ },
+ {
+  "bgg_id": 1115,
+  "name": "Religious",
+  "count": 1320
+ },
+ {
+  "bgg_id": 1051,
+  "name": "Napoleonic",
+  "count": 1253
+ },
+ {
+  "bgg_id": 1034,
+  "name": "Trains",
+  "count": 1159
+ },
+ {
+  "bgg_id": 1088,
+  "name": "Industry / Manufacturing",
+  "count": 1132
+ },
+ {
+  "bgg_id": 1013,
+  "name": "Farming",
+  "count": 1129
+ },
+ {
+  "bgg_id": 1015,
+  "name": "Civilization",
+  "count": 1089
+ },
+ {
+  "bgg_id": 1055,
+  "name": "American West",
+  "count": 1088
+ },
+ {
+  "bgg_id": 1072,
+  "name": "Electronic",
+  "count": 1058
+ },
+ {
+  "bgg_id": 1054,
+  "name": "Music",
+  "count": 1036
+ },
+ {
+  "bgg_id": 2710,
+  "name": "Post-Napoleonic",
+  "count": 1003
+ },
+ {
+  "bgg_id": 1042,
+  "name": "Expansion for Base-game",
+  "count": 945
+ },
+ {
+  "bgg_id": 1065,
+  "name": "World War I",
+  "count": 945
+ },
+ {
+  "bgg_id": 1059,
+  "name": "Maze",
+  "count": 930
+ },
+ {
+  "bgg_id": 1081,
+  "name": "Spies/Secret Agents",
+  "count": 911
+ },
+ {
+  "bgg_id": 2481,
+  "name": "Zombies",
+  "count": 898
+ },
+ {
+  "bgg_id": 1048,
+  "name": "American Civil War",
+  "count": 877
+ },
+ {
+  "bgg_id": 1070,
+  "name": "Renaissance",
+  "count": 826
+ },
+ {
+  "bgg_id": 1036,
+  "name": "Prehistoric",
+  "count": 707
+ },
+ {
+  "bgg_id": 1102,
+  "name": "Civil War",
+  "count": 678
+ },
+ {
+  "bgg_id": 2726,
+  "name": "Age of Reason",
+  "count": 650
+ },
+ {
+  "bgg_id": 1033,
+  "name": "Mafia",
+  "count": 469
+ },
+ {
+  "bgg_id": 2725,
+  "name": "Pike and Shot",
+  "count": 455
+ },
+ {
+  "bgg_id": 2145,
+  "name": "Medical",
+  "count": 435
+ },
+ {
+  "bgg_id": 1075,
+  "name": "American Revolutionary War",
+  "count": 334
+ },
+ {
+  "bgg_id": 1109,
+  "name": "Vietnam War",
+  "count": 310
+ },
+ {
+  "bgg_id": 1119,
+  "name": "Game System",
+  "count": 287
+ },
+ {
+  "bgg_id": 1108,
+  "name": "American Indian Wars",
+  "count": 220
+ },
+ {
+  "bgg_id": 1052,
+  "name": "Arabian",
+  "count": 212
+ },
+ {
+  "bgg_id": 1091,
+  "name": "Korean War",
+  "count": 132
+ },
+ {
+  "bgg_id": 2687,
+  "name": "Fan Expansion",
+  "count": 28
+ }
+]
