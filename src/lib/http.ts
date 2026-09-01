@@ -13,7 +13,7 @@ import { UpstreamError } from './errors.js';
  * that is above the router's 30s rather than below it — cutting a request off at
  * 10s would just guarantee we never see the slow-but-successful responses.
  */
-export const USER_AGENT = 'boardgame-mcp/0.1 (+https://github.com/rowinhernandez/boardgame-mcp)';
+export const USER_AGENT = 'boardgame-mcp/0.1 (+https://github.com/rowinbot/boardgame-mcp)';
 
 /** Statuses worth retrying. 400 is absent on purpose: a bad query is a bug, not a blip. */
 const RETRYABLE_STATUS = new Set([429, 500, 502, 503, 504]);
