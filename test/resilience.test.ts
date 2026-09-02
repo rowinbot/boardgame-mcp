@@ -1,9 +1,20 @@
 import { describe, expect, it, vi } from 'vitest';
 import { HttpClient } from '../src/lib/http.js';
-import { RecommendGamesClient, RANKED_CORPUS, UNFILTERED_CORPUS, assertFilterApplied, buildQuery } from '../src/clients/recommendGames.js';
-import { FilterIgnoredError, UnknownFilterError, UpstreamError } from '../src/lib/errors.js';
+import { RecommendGamesClient, RANKED_CORPUS, UNFILTERED_CORPUS, assertFilterApplied, assertRowsSatisfyFilters, buildQuery } from '../src/clients/recommendGames.js';
+import { FilterIgnoredError, FilterNotAppliedError, UnknownFilterError, UpstreamError } from '../src/lib/errors.js';
 import { loadFixtures } from '../src/lib/recordedFetch.js';
 import { fakeFetch } from './support/deps.js';
+import { RawGameSchema, type RawGame } from '../src/clients/gameSchema.js';
+
+/**
+ * A row with everything nullable left null, so a test states only the field it
+ * is about. Built through the schema rather than cast, so a schema change breaks
+ * these tests instead of letting them assert against a shape that no longer
+ * exists.
+ */
+function row(fields: Partial<RawGame> & { name: string }): RawGame {
+  return RawGameSchema.parse({ bgg_id: 1, bgg_rank: 1, ...fields });
+}
 
 const fixtures = loadFixtures();
 const catan = fixtures.game_catan as Record<string, unknown>;
@@ -41,6 +52,45 @@ describe('the silently-ignored-filter trap', () => {
     // 31,135 ranked games is the correct answer here, not a dropped filter.
     expect(() => assertFilterApplied('u', params, RANKED_CORPUS)).not.toThrow();
     expect(() => assertFilterApplied('u', params, UNFILTERED_CORPUS)).toThrow(FilterIgnoredError);
+  });
+
+  // The gap the count check cannot close, and the reason the row check exists.
+  //
+  // Every real query sends two or three narrowing filters together. Drop the
+  // mechanic and keep the other two and the response is roughly 2,545 rows,
+  // which is far under the 31,135 baseline, so the count check passes it and the
+  // tool ranks the highest-rated ranked games instead of games like the seed.
+  // The test above asserts exactly that count passing, which is correct for what
+  // it measures and is why a second check was needed rather than a tighter one.
+  it('accepts a count the row check is meant to catch, so the two are not redundant', () => {
+    const params = { bgg_rank__isnull: false, num_votes__gte: 500, mechanic: 2987 };
+    expect(() => assertFilterApplied('u', params, 2_545)).not.toThrow();
+  });
+
+  it('rejects a row that violates a filter the query asked for', () => {
+    const rows = [row({ name: 'Thin Game', num_votes: 12 })];
+    expect(() => assertRowsSatisfyFilters('u', { num_votes__gte: 500 }, rows)).toThrow(FilterNotAppliedError);
+    expect(() => assertRowsSatisfyFilters('u', { num_votes__gte: 10 }, rows)).not.toThrow();
+  });
+
+  it('rejects an unranked row from a ranked-only query', () => {
+    const rows = [row({ name: 'Unranked', bgg_rank: null })];
+    expect(() => assertRowsSatisfyFilters('u', { bgg_rank__isnull: false }, rows)).toThrow(FilterNotAppliedError);
+    expect(() => assertRowsSatisfyFilters('u', { bgg_rank__isnull: true }, rows)).not.toThrow();
+  });
+
+  it('treats a missing field as a match, because the upstream does', () => {
+    // recommend.games keeps rows whose filtered field is null rather than
+    // dropping them. Calling that a violation would throw on legitimate data.
+    const rows = [row({ name: 'No Complexity', complexity: null })];
+    expect(() => assertRowsSatisfyFilters('u', { complexity__lte: 2 }, rows)).not.toThrow();
+  });
+
+  it('ignores filters no row field can answer', () => {
+    // `mechanic` is an id and the row carries names, so the client cannot check
+    // it. findSimilarGames does, where the name it asked for is in scope.
+    const rows = [row({ name: 'Anything' })];
+    expect(() => assertRowsSatisfyFilters('u', { mechanic: 2987 }, rows)).not.toThrow();
   });
 
   it('ignores paging and ordering when deciding whether a filter was applied', () => {

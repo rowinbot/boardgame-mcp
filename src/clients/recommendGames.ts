@@ -1,6 +1,6 @@
 import { HttpClient } from '../lib/http.js';
 import { StaleWhileErrorCache, type CacheLookup } from '../lib/cache.js';
-import { FilterIgnoredError, UnknownFilterError, UpstreamError } from '../lib/errors.js';
+import { FilterIgnoredError, FilterNotAppliedError, UnknownFilterError, UpstreamError } from '../lib/errors.js';
 import { PageSchema, RawGameSchema, type Page, type RawGame } from './gameSchema.js';
 
 const BASE = 'https://recommend.games/api';
@@ -95,6 +95,82 @@ export function assertFilterApplied(url: string, params: QueryParams, count: num
   if (count >= baseline) throw new FilterIgnoredError(url, count, baseline);
 }
 
+/**
+ * Row-level check on the same trap, and the one that catches the common case.
+ *
+ * `assertFilterApplied` only fires when a dropped filter leaves a corpus-sized
+ * count. Every query this server sends carries two or three narrowing filters
+ * together, so the realistic failure is one being dropped while the others hold:
+ * `mechanic` going missing from a query that still has `bgg_rank__isnull` and
+ * `num_votes__gte` returns roughly 2,545 rows, far under the 31,135 baseline,
+ * and the count check passes it. The answer is then the highest-rated ranked
+ * games rather than games resembling the seed, which is precisely the confident
+ * wrong answer the guard exists to prevent.
+ *
+ * A row either satisfies a filter or it does not, so checking rows removes the
+ * heuristic. Only filters backed by a field on the row can be checked here;
+ * `mechanic` and `category` are ids the row does not carry, and are verified by
+ * the caller, which knows the name it asked for.
+ */
+type RowCheck = (row: RawGame, value: string) => string | null;
+
+const ROW_CHECKS: Record<string, RowCheck> = {
+  bgg_rank__isnull: (row, value) => {
+    const wantNull = value === 'true';
+    const isNull = row.bgg_rank === null;
+    return isNull === wantNull ? null : `"${row.name}" has bgg_rank ${String(row.bgg_rank)}`;
+  },
+  num_votes__gte: (row, value) =>
+    row.num_votes !== null && row.num_votes < Number(value)
+      ? `"${row.name}" has ${row.num_votes} votes, under ${value}`
+      : null,
+  complexity__gte: (row, value) =>
+    row.complexity !== null && row.complexity < Number(value)
+      ? `"${row.name}" has complexity ${row.complexity}, under ${value}`
+      : null,
+  complexity__lte: (row, value) =>
+    row.complexity !== null && row.complexity > Number(value)
+      ? `"${row.name}" has complexity ${row.complexity}, over ${value}`
+      : null,
+  min_players__lte: (row, value) =>
+    row.min_players !== null && row.min_players > Number(value)
+      ? `"${row.name}" needs ${row.min_players} players minimum, over ${value}`
+      : null,
+  max_players__gte: (row, value) =>
+    row.max_players !== null && row.max_players < Number(value)
+      ? `"${row.name}" seats ${row.max_players} at most, under ${value}`
+      : null,
+  max_time__lte: (row, value) =>
+    row.max_time !== null && row.max_time > Number(value)
+      ? `"${row.name}" runs to ${row.max_time} min, over ${value}`
+      : null,
+  min_time__gte: (row, value) =>
+    row.min_time !== null && row.min_time < Number(value)
+      ? `"${row.name}" starts at ${row.min_time} min, under ${value}`
+      : null,
+  year__gte: (row, value) =>
+    row.year !== null && row.year < Number(value)
+      ? `"${row.name}" is from ${row.year}, before ${value}`
+      : null,
+};
+
+/**
+ * A null field is not a violation. The upstream's own filters keep rows whose
+ * value is missing rather than dropping them, so treating null as a failure
+ * would throw on data the API considers a legitimate match.
+ */
+export function assertRowsSatisfyFilters(url: string, params: QueryParams, rows: readonly RawGame[]): void {
+  for (const [key, raw] of Object.entries(params)) {
+    const check = ROW_CHECKS[key];
+    if (!check) continue;
+    const value = String(raw);
+    for (const row of rows) {
+      const violation = check(row, value);
+      if (violation) throw new FilterNotAppliedError(url, `${key}=${value}`, violation);
+    }
+  }
+}
+
 export interface Fetched<T> {
   value: T;
   cache: { hit: boolean; stale: boolean; ageSeconds: number | null };
@@ -155,6 +231,7 @@ export class RecommendGamesClient {
     try {
       const page = PageSchema.parse(await this.http.getJson(url));
       assertFilterApplied(url, params, page.count);
+      assertRowsSatisfyFilters(url, params, page.results);
       this.queryCache.set(key, page);
       return fresh(page);
     } catch (error) {

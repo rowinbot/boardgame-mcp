@@ -135,16 +135,29 @@ and `?name__icontains=gloomhaven`. No error, no warning, no hint. A one-characte
 name produces a confident, plausible, entirely wrong answer, and nothing in the response
 distinguishes it from a correct one.
 
-Two independent guards cover it, both in `src/clients/recommendGames.ts`.
+Three guards cover it. Two live in `src/clients/recommendGames.ts` and the third in
+`src/tools/findSimilarGames.ts`. All three throw: unlike a 503 this is our bug, so it is not retried,
+not cached, and not served stale.
 
-The first is an allow-list. Every query is built through `buildQuery`, which throws
-`UnknownFilterError` on any key not on a list of filters verified to actually filter. The request is
-never sent. That catches the typo we write.
+**An allow-list.** Every query is built through `buildQuery`, which throws `UnknownFilterError` on
+any key not on a list of filters verified to actually filter. The request is never sent. That catches
+the typo we write.
 
-The second is a corpus-size assertion. After every response, `assertFilterApplied` checks that a
-query which narrowed the corpus came back with fewer rows than the corpus contains. That catches the
-filter the upstream quietly stops honouring, the version that would survive a deploy unnoticed. It
-throws. Unlike a 503 it is our bug, so it is not retried, not cached, and not served stale.
+**A corpus-size assertion.** After every response, `assertFilterApplied` checks that a query which
+narrowed the corpus came back with fewer rows than the corpus contains. That catches a filter the
+upstream stops honouring entirely.
+
+**A row check**, which exists because the corpus-size assertion has a hole and every query this
+server sends falls in it. Both tools send two or three narrowing filters together. Drop the mechanic
+and keep `bgg_rank__isnull` and `num_votes__gte` and the response is about 2,545 rows, far under the
+31,135 baseline, so the size check passes it and the tool ranks the highest-rated ranked games rather
+than games resembling the seed. A count cannot tell those apart. A row can: `assertRowsSatisfyFilters`
+checks every returned row against every filter backed by a field on it, and `findSimilarGames` checks
+the mechanic itself, because that filter is sent as an id and the row carries only names.
+
+A null field counts as a match, because the upstream keeps rows whose filtered field is missing
+rather than dropping them. Treating null as a violation would throw on data the API considers a
+legitimate result.
 
 ### `search=` is permanently broken
 

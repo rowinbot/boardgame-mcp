@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import type { RawGame } from '../clients/gameSchema.js';
-import { ToolError } from '../lib/errors.js';
+import { FilterNotAppliedError, ToolError } from '../lib/errors.js';
 import { scoreSimilarity } from '../lib/score.js';
 import { MAX_PAGE_SIZE, type QueryParams } from '../clients/recommendGames.js';
 import { CacheSchema, RecommendationSchema, SOURCE, SourceSchema, GameSummarySchema } from '../schemas.js';
@@ -53,6 +53,25 @@ export const config = {
   outputSchema,
 } as const;
 
+/**
+ * Every row from a `mechanic=<id>` query must list that mechanic. One that does
+ * not means the parameter was accepted and ignored.
+ *
+ * Written as an all-rows check rather than a sample because it costs nothing:
+ * the rows are already in memory and a page is 25 of them.
+ */
+function assertMechanicApplied(name: string, rows: readonly RawGame[]): void {
+  for (const row of rows) {
+    if (!row.mechanic_name.includes(name)) {
+      throw new FilterNotAppliedError(
+        'recommend.games /api/games/',
+        `mechanic=${name}`,
+        `"${row.name}" does not list it`,
+      );
+    }
+  }
+}
+
 export async function findSimilarGames(deps: ToolDeps, input: Input): Promise<Output> {
   const cache = new CacheTracker();
   const resolution = deps.index.resolve(input.game);
@@ -82,6 +101,13 @@ export async function findSimilarGames(deps: ToolDeps, input: Input): Promise<Ou
     const result = await deps.games.query({ ...pool, page });
     requests += 1;
     cache.record(result.cache);
+    // The client checks every filter it can read off a row. `mechanic` is sent
+    // as a bgg_id and the row carries only names, so it is checked here, where
+    // the name we asked for is in hand. Without this the query silently degrades
+    // to "highest-rated ranked games" if the upstream stops honouring the
+    // parameter, and the count check cannot see it: the other two filters still
+    // narrow the corpus well below the baseline.
+    if (mechanic) assertMechanicApplied(mechanic.name, result.value.results);
     for (const game of result.value.results) {
       if (!excluded.has(game.bgg_id)) candidates.set(game.bgg_id, game);
     }

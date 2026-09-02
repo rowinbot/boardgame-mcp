@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { RawGameSchema, type RawGame } from '../src/clients/gameSchema.js';
-import { combine, jaccard, playerOverlap, proximity, scoreSimilarity } from '../src/lib/score.js';
+import { combine, jaccard, playerOverlap, proximity, scoreSimilarity, sharedItems } from '../src/lib/score.js';
 import { findSimilarGames, inputSchema as similarInput, outputSchema as similarOutput } from '../src/tools/findSimilarGames.js';
 import { suggestGamesForGroup, inputSchema as groupInput, outputSchema as groupOutput, matchesGroup } from '../src/tools/suggestGamesForGroup.js';
 import { relatedIds } from '../src/tools/shared.js';
@@ -19,6 +19,11 @@ describe('scoring arithmetic', () => {
   it('computes Jaccard overlap', () => {
     expect(jaccard(['a', 'b'], ['a', 'b'])).toBe(1);
     expect(jaccard(['a', 'b'], ['c', 'd'])).toBe(0);
+    // A repeated entry on the left used to be counted once per occurrence while
+    // the union was de-duplicated, so this returned 1.5. A similarity above its
+    // own maximum then propagates into the ranking and the `why` string.
+    expect(jaccard(['a', 'a', 'b'], ['a', 'b'])).toBe(1);
+    expect(jaccard(['a', 'a'], ['a', 'b'])).toBe(0.5);
     expect(jaccard(['a', 'b'], ['b', 'c'])).toBeCloseTo(1 / 3);
     expect(jaccard([], ['a'])).toBeNull();
   });
@@ -191,5 +196,15 @@ describe('output schema conformance', () => {
       }
     }
     expect(parsed).toBeGreaterThan(250);
+  });
+});
+
+describe('sharedItems', () => {
+  it('returns each match once, however often the input repeats it', () => {
+    expect(sharedItems(['a', 'a', 'b', 'c'], ['a', 'b'])).toEqual(['a', 'b']);
+  });
+
+  it('keeps the order the first list gives', () => {
+    expect(sharedItems(['c', 'a'], ['a', 'c'])).toEqual(['c', 'a']);
   });
 });

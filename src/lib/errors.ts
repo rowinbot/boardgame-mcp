@@ -51,6 +51,30 @@ export class FilterIgnoredError extends Error {
   }
 }
 
+/**
+ * A returned row does not satisfy a filter the query asked for.
+ *
+ * The count check above only fires when a filter is dropped and the response is
+ * corpus-sized. Every real query here sends two or three narrowing filters at
+ * once, so the common failure is one of them being dropped while the others
+ * hold: the count lands well under the baseline and the count check sees
+ * nothing. Checking the rows catches that, because a row either satisfies the
+ * filter or it does not.
+ */
+export class FilterNotAppliedError extends Error {
+  constructor(
+    readonly url: string,
+    readonly filter: string,
+    readonly detail: string,
+  ) {
+    super(
+      `recommend.games returned rows that do not satisfy "${filter}": ${detail}. The filter was ` +
+        `accepted and not applied, so the count check could not see it. URL: ${url}`,
+    );
+    this.name = 'FilterNotAppliedError';
+  }
+}
+
 /** An unknown key reached the query builder. Always a typo, always our fault. */
 export class UnknownFilterError extends Error {
   constructor(key: string, allowed: readonly string[]) {

@@ -33,17 +33,34 @@ export function combine(components: Component[]): number {
   return total === 0 ? 0 : weighted / total;
 }
 
+/**
+ * Jaccard over the two lists treated as sets.
+ *
+ * The intersection is de-duplicated, which the first version was not: it counted
+ * matches with a filter over the raw array while dividing by a de-duplicated
+ * union, so a repeated entry on the left could push the result above 1. Three
+ * mechanics with one repeat against two scored 1.5. The upstream is not known to
+ * repeat a mechanic, so this may never have fired, but a similarity that can
+ * exceed its own maximum is not worth leaving to the upstream's good behaviour.
+ */
 export function jaccard(a: readonly string[], b: readonly string[]): number | null {
   if (a.length === 0 || b.length === 0) return null;
-  const setB = new Set(b);
-  const shared = a.filter((item) => setB.has(item));
+  const shared = sharedItems(a, b).length;
   const union = new Set([...a, ...b]).size;
-  return union === 0 ? null : shared.length / union;
+  return union === 0 ? null : shared / union;
 }
 
+/** The intersection, de-duplicated and in the order `a` gives. */
 export function sharedItems(a: readonly string[], b: readonly string[]): string[] {
   const setB = new Set(b);
-  return a.filter((item) => setB.has(item));
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const item of a) {
+    if (!setB.has(item) || seen.has(item)) continue;
+    seen.add(item);
+    out.push(item);
+  }
+  return out;
 }
 
 /** 1 when identical, falling to 0 at twice the caller's tolerance. */
