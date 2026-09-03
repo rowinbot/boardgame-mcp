@@ -17,7 +17,7 @@ A hardened upstream client: an allow-list on query construction, a corpus-size a
 response, a serial queue, bounded retry with jitter, and a stale-while-error cache. ADR-002 and
 ADR-003 record why each piece is shaped the way it is.
 
-47 tests, none of which touch the network, including a real MCP client talking to a real server over
+54 tests, none of which touch the network, including a real MCP client talking to a real server over
 a linked in-memory transport.
 
 A demo that makes five tool calls and prints what comes back, with `--offline` for a reviewer sitting

@@ -34,7 +34,7 @@ npm run demo -- --offline
 Other entry points:
 
 ```
-npm test          # 47 tests, no network
+npm test          # 54 tests, no network
 npm run typecheck
 npm start         # the server itself, speaking MCP over stdio
 npm run inspector # the official MCP Inspector, a React web client
@@ -272,7 +272,7 @@ Small dependency surface on purpose: `@modelcontextprotocol/server`, `zod`, `p-r
 
 ## Tests
 
-47 tests, none of which touch the network.
+54 tests, none of which touch the network.
 
 `test/protocol.test.ts` runs a real `Client` against a real `McpServer` over
 `InMemoryTransport.createLinkedPair()`. It asserts tool advertisement including output schemas,

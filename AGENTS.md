@@ -16,7 +16,7 @@ repo. Written as a hiring take-home, so the first thing a reader does is clone i
    change that appears to need a key is a change in the wrong direction.
 2. Tools never call `fetch`. Clients never mention MCP. `src/tools/` takes a schema in and gives a
    schema out; `src/clients/` speaks HTTP and knows nothing about the protocol. That boundary is what
-   makes 47 network-free tests possible.
+   makes 54 network-free tests possible.
 3. Every upstream query goes through `buildQuery` in `src/clients/recommendGames.ts`. The API ignores
    unknown filter parameters and answers HTTP 200 with the whole 133,004-game corpus, so a
    hand-written URL string is a wrong answer waiting to happen. Read
@@ -50,7 +50,7 @@ repo. Written as a hiring take-home, so the first thing a reader does is clone i
 npm install
 npm run demo               # five tool calls over a real in-memory MCP transport
 npm run demo -- --offline  # the same run against recorded fixtures
-npm test                   # 47 tests, no network
+npm test                   # 54 tests, no network
 npm run typecheck
 npm start                  # the server itself, speaking MCP over stdio
 npm run inspector          # MCP Inspector, the React web client
